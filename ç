@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# declare -A arr
-# echo $? # apenas para testar se essa sintaxe para a criação de arrays associativos é reconhecida
-
-if ! declare -A arr; then
-	echo "essa funcionalidade não está disponível."
