@@ -325,3 +325,84 @@ array=(foo bars baz)
 echo "${#array[@]}" # -> 3
 echo "${#array[1]}" # -> 4 (comprimento do elemento de índice 1)
 ```
+
+## Associative _arrays_ (Arrays associativos)
+
+Em _Bash_, arrays associativos são a estrutura de dados equivalentes a _HashMaps_ em Java, ou dicionários em Python, etc.
+
+Ou seja, é basicamente uma estrutura de dados que associa chaves a valores.
+
+### Criando arrays associativos
+
+A criação de arrays associativos em _Bash_ se dá **exclusivamente** pela utilização do comando `declare`, mas dessa vez com a _flag_ `-A`.
+
+```bash
+declare -A arr
+```
+
+### Povoando array associativo
+
+Para povoá-los, basta associar cada chave a um valor utilizando colchetes.
+
+```bash
+arr[foo]=1
+arr[bar]=2
+arr[baz]=3
+```
+
+### Obtendo valores
+
+```bash
+echo "$arr" # ->
+echo "${arr}" # ->
+echo "${arr[foo]}" # -> 1
+echo "${arr["foo"]}" # -> 1
+echo "${arr[@]}" # -> 1 2 3
+echo "${arr[*]}" # -> 1 2 3
+echo "${arr[fake]}" # ->
+```
+
+### Obtendo chaves
+
+Para obter as chaves do array associativo, deve-se utilizar o símbolo `!`.
+
+```bash
+echo "${!arr[*]}" # -> foo bar baz
+```
+
+Importante notar que caso você deseje iterar pelas **chaves** do array associativo (em um laço `for`, por exemplo), será preciso utilizar **duplas aspas** junto com `@`.
+
+```bash
+for key in "${!arr[@]}"; do
+    echo $key
+done
+# -> foo
+# -> bar
+# -> baz
+```
+
+Imagine que queremos agora, nesse mesmo laço, printar também os valores associados a cada chave. Podemos seguir com:
+
+```bash
+for key in "${!arr[@]}"; do
+    value=${arr[key]}
+    echo "Pair: $key=$value"
+done
+# -> Pair: foo=
+# -> Pair: bar=
+# -> Pair: baz=
+```
+
+Esse resultado ocorre pois `value=${arr[key]}` está buscando associar a variável `value` a o valor, no array associativo, ligado ao literal **key**. Como não existe essa chave na estrutura, nada é associado a `value`.
+
+Assim, para que _value_ receba de fato o valor esperado deve-se utilizar `$`.
+
+```bash
+for key in "${!arr[@]}"; do
+    value=${arr[$key]}
+    echo "Pair: $key=$value"
+done
+# -> Pair: foo=1
+# -> Pair: bar=2
+# -> Pair: baz=3
+```
