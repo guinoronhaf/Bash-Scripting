@@ -304,7 +304,7 @@ done
 
 ```bash
 second_array=("${first_array[@]}")
-second_array += (outro elemento)
+second_array+=(outro elemento)
 ```
 
 ### Obtendo uma visão mais geral do _array_ usando `declare -p`
