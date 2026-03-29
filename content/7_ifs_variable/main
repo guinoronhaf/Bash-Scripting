@@ -1,0 +1,10 @@
+#!/bin/bash
+
+array=(
+	foo
+	bar
+	baz
+)
+
+IFS=
+echo "array is: ${array[*]}"

@@ -406,3 +406,91 @@ done
 # -> Pair: bar=2
 # -> Pair: baz=3
 ```
+
+## _IFS variable_
+
+A variável _IFS_ define alguns caracteres _defautl_ para operações específicas.
+
+Por exemplo, considere:
+
+```bash
+array=(
+    foo
+    bar
+    baz
+)
+
+echo "array is: ${array[*]}" # -> array is: foo bar baz
+```
+
+Note que os elementos de `array` estão separados por `<space>`. No entanto, pode-se executar o seguinte:
+
+```bash
+array=(
+    foo
+    bar
+    baz
+)
+
+IFS=,
+echo "array is: ${array[*]}" # -> array is: foo,bar,baz
+```
+
+## Command substitution
+
+Em _bash script_, a substituição de comandos utilizando _subshell_ é bastante conhecida e até mais legível se comparada à substituição tradicional usando _bascksticks_.
+
+A sintaxe é:
+
+```bash
+<variavel>=$(<comando do shell>)
+```
+
+### _Subshell_ e escopo
+
+É importante destacar que ao executar um comando a partir de um subshell, este comando será executando em um ambiente (shell) diferente daquele principal (no qual o programa principal está rodando).
+
+Isso significa que o _subshell_, por si só, não causa efeitos colaterais. Por exemplo, em:
+
+```bash
+i=5
+
+my-func() {
+    i=6
+    echo oi
+}
+
+thing=$(my-func)
+echo "thing is $thing" # -> thing is oi
+echo "i is $i" # -> i is 5
+```
+
+Entretanto, ao rodar:
+
+```bash
+i=5
+
+my-func() {
+    i=6
+    echo oi
+}
+
+my-func
+echo "i is $i" # -> i is 6
+```
+
+> [!WARNING]
+> Para bash >= **5.3**, existe outra forma de "utilizar" o _subshell_. A diferença é que, neste caso, o shell (ambiente) utilziando será o mesmo do programa principal. Veja o exemplo de sintaxe.
+
+```bash
+i=5
+
+my-func() {
+    i=6
+    echo oi
+}
+
+thing=${ my-func; }
+echo "thing is $thing" # -> thing is oi
+echo "i is $i" # -> i is 6
+```

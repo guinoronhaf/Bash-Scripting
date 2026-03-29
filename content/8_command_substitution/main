@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# echo "using backsticks"
+# whoami
+# echo `whoami`
+# echo `echo \`whoami\``
+# echo `echo \`echo \\\`whoami\\\`\``
+
+# echo "dollar-parens notation"
+# whoami
+# echo $(whoami)
+# echo $(echo $(whoami))
+# echo $(echo $(echo $(whoami)))
+
+i=5
+
+my-func() {
+	i=6
+	echo oi
+}
+
+# thing=$(my-func)
+# my-func
+# thing=${ my-func; }
+echo "thing is $thing"
+echo "i is $i"
