@@ -494,3 +494,7 @@ thing=${ my-func; }
 echo "thing is $thing" # -> thing is oi
 echo "i is $i" # -> i is 6
 ```
+
+## Arithmetic expressions
+
+Código disponível [aqui](./content/9_arithmetic_expressions/main)

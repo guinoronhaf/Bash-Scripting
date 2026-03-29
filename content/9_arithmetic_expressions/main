@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Forma básica de uso
+thing=$(( 2 + 2 ))
+echo "1st thing is $thing"
+
+# Ao utilizar variáveis nas expressõe, não é preciso utilizar $
+a=2
+b=3
+thing=$(( a + b ))
+echo "2nd thing is $thing"
+
+# Pode-se fazer novas atribuições
+(( c = a + b ))
+echo "c is $c"
+
+# Ao tentar passar algo que seja número inteiro, o resultado é 0
+a=hello
+b=goodbye
+thing=$(( a + b ))
+echo "3rd thing is $thing"
+
+# Pode-se realizar incrementos de forma mais legível
+i=0
+((i++))
+echo "i is $i"
+
+# E com outras operações também
+i=2
+((i *= 5))
+echo "i is $i"
+
+# Mais ainda
+i=2
+(( i >>= 5 )) # shift right 5 vezes
+i=2
+(( i <<= 5 )) # shift left 5 vezes
+
+# Suporta, ainda, operações ternárias
+a=2
+b=3
+((max = a > b ? a : b))
+echo "max is $max"
