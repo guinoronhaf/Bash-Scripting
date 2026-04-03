@@ -25,7 +25,7 @@ for word in $words; do
     ((i++))
 done
 
-echo "$i palavra(s) foi(ram) encontrada(s)"
+echo "$i palavra(s) foi(foram) encontrada(s)"
 ```
 
 Perceba que o resultado de `grep d /usr/share/dict/words` precisou ser **todo** carregado em memória para só então ser alvo da iteração do laço `for`.
@@ -62,7 +62,7 @@ while read -r word; do
     ((i++))
 done < <(grep d /usr/share/dict/words)
 
-echo "$i palavra(s) foi(ram) encontrada(s)"
+echo "$i palavra(s) foi(foram) encontrada(s)"
 ```
 
 A principal vantagem é em relação a **não dependência em relação à performance do comando/processo entre parênteses**.
